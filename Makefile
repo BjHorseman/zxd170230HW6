@@ -1,7 +1,7 @@
 
 CXX = g++
-CXXFLAGS =
-CPPFLAGS = -Wall -g -I/scratch/perkins/include
+CXXFLAGS = -Wall -g
+CPPFLAGS = -I/scratch/perkins/include
 LDFLAGS = -L/scratch/perkins/lib
 LDLIBS = -lcdk -lcurses 
 
@@ -11,9 +11,9 @@ MANPATH=$MANPATH:/scratch/perkins/man; export MANPATH
 # PROJECTNAME is a descriptive name used for the backup target
 # This should not contain spaces or special characters
 
-EXECFILE = cdkexample
+EXECFILE = program6
 
-OBJS = example1.o
+OBJS = program6.o
 
 
 all: $(EXECFILE)
