@@ -5,7 +5,7 @@ CPPFLAGS = -I/scratch/perkins/include
 LDFLAGS = -L/scratch/perkins/lib
 LDLIBS = -lcdk -lcurses 
 
-MANPATH=$MANPATH:/scratch/perkins/man; export MANPATH
+#MANPATH=$MANPATH:/scratch/perkins/man; export MANPATH
 
 #
 # PROJECTNAME is a descriptive name used for the backup target

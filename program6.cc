@@ -1,13 +1,9 @@
-/*
- * Usage of CDK Matrix
- *
- * File:   example1.cc
- * Author: Stephen Perkins
- * Email:  stephen.perkins@utdallas.edu
- */
+//Zijia Ding
+//zxd170230
+//zxd170230@utdallas.edu
+//CS3377.002
 
-#include <iostream>
-#include "cdk.h"
+#include "program6.h"
 
 
 #define MATRIX_WIDTH 3
@@ -64,17 +60,41 @@ int main()
 
   /* Display the Matrix */
   drawCDKMatrix(myMatrix, true);
+  
+  //read file
+  BinaryFileHeader *myHeader = new BinaryFileHeader();
+  BinaryFileRecord *myRecord = new BinaryFileRecord();
+  ifstream binInFile ("cs3377.bin", ios::in|ios::binary);
+  if(!binInFile){
+    cout<<"ERROER:Please check .bin file"<<endl;
+    return 0;
+  }
+  binInFile.read((char *) myHeader, sizeof(BinaryFileHeader));
+  binInFile.read((char *) myRecord, sizeof(BinaryFileRecord));
+  char buffer[32];
+  sprintf(buffer, "Magic: %#010X", myHeader->magicNumber);
+  setCDKMatrixCell(myMatrix, 1, 1, buffer);
+  sprintf(buffer, "Version: %u", myHeader->versionNumber);
+  setCDKMatrixCell(myMatrix, 1, 2, buffer);
+  sprintf(buffer, "NumRecords: %lu",myHeader->numRecords);
+  setCDKMatrixCell(myMatrix, 1, 3, buffer);
 
-  /*
-   * Dipslay a message
-   */
-  setCDKMatrixCell(myMatrix, 2, 2, "Test Message");
+  /* read data record from binary file */
+  for (int i = 2; i <= 5; i++)
+    {
+      sprintf(buffer, "strlen: %i", myRecord->strLength);
+      setCDKMatrixCell(myMatrix, i,1, buffer);
+      sprintf(buffer, "%s", myRecord->stringBuffer);
+      setCDKMatrixCell(myMatrix, i,2, buffer);
+    }
+
+  
   drawCDKMatrix(myMatrix, true);    /* required  */
 
-  /* So we can see results, pause until a key is pressed. */
-  unsigned char x;
-  cin >> x;
+  //pause to see the result
+  sleep(10);
 
   // Cleanup screen
   endCDK();
+  binInFile.close();
 }
