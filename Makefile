@@ -1,3 +1,7 @@
+#Zijia Ding
+#zxd170230@utdallas.edu
+#zxd170230
+#CS3377.002
 
 CXX = g++
 CXXFLAGS = -Wall -g
@@ -6,8 +10,6 @@ LDFLAGS = -L/scratch/perkins/lib
 LDLIBS = -lcdk -lcurses 
 
 #MANPATH=$MANPATH:/scratch/perkins/man; export MANPATH
-
-#
 # PROJECTNAME is a descriptive name used for the backup target
 # This should not contain spaces or special characters
 

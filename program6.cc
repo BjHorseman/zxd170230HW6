@@ -65,12 +65,13 @@ int main()
   BinaryFileHeader *myHeader = new BinaryFileHeader();
   BinaryFileRecord *myRecord = new BinaryFileRecord();
   ifstream binInFile ("cs3377.bin", ios::in|ios::binary);
+  //error message
   if(!binInFile){
     cout<<"ERROER:Please check .bin file"<<endl;
     return 0;
   }
   binInFile.read((char *) myHeader, sizeof(BinaryFileHeader));
-  binInFile.read((char *) myRecord, sizeof(BinaryFileRecord));
+  //create a buffer to hold the values
   char buffer[32];
   sprintf(buffer, "Magic: %#010X", myHeader->magicNumber);
   setCDKMatrixCell(myMatrix, 1, 1, buffer);
@@ -78,22 +79,18 @@ int main()
   setCDKMatrixCell(myMatrix, 1, 2, buffer);
   sprintf(buffer, "NumRecords: %lu",myHeader->numRecords);
   setCDKMatrixCell(myMatrix, 1, 3, buffer);
-
-  /* read data record from binary file */
+  //fix it to read all the records
   for (int i = 2; i <= 5; i++)
     {
-      sprintf(buffer, "strlen: %i", myRecord->strLength);
+      binInFile.read((char *) myRecord, sizeof(BinaryFileRecord));
+      sprintf(buffer, "strlen: %hhu", myRecord->strLength);
       setCDKMatrixCell(myMatrix, i,1, buffer);
       sprintf(buffer, "%s", myRecord->stringBuffer);
       setCDKMatrixCell(myMatrix, i,2, buffer);
     }
-
-  
   drawCDKMatrix(myMatrix, true);    /* required  */
-
   //pause to see the result
   sleep(10);
-
   // Cleanup screen
   endCDK();
   binInFile.close();
